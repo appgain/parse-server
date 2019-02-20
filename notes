@@ -1,0 +1,128 @@
+docker run -d -p 1337:1337 \
+-v /var/efs/testapp:/var/parse-apps \
+--name parseapp parser \
+/bin/sh -c "while true; do ping 8.8.8.8;done"
+
+
+docker run -d -p 1339:1337 \
+-v /var/efs/testparseapp:/var/parse-apps \
+--name parseapp-alpine parse-server \
+/bin/sh -c "while true; do ping 8.8.8.8;done
+
+-----------------
+docker run -d -p 1337:1337 \
+-v /var/efs/testparseapp:/var/parse-apps \
+--name parseapp parser \
+/bin/sh -c "while true; do ping 8.8.8.8;done "
+
+docker exec -it parseapp /bin/sh
+
+npm install -g parse-dashboard
+--------
+install appgain dashboard :
+
+npm install -g appgain-parse-dashboard
+
+in pm2 conf
+script: /usr/bin/appgain-parse-dashboard
+
+
+
+./bin/parse-server conf/parse-config.json
+---------
+docker run  --name tparse   \
+             -v /var/efs/testapp/cloud:/parse-server/cloud\
+             -v /var/efs/testapp/cert:/parse-server/cert \
+              -v /var/efs/testapp/conf:/parse-server/conf \
+             -v /var/efs/testapp/logs:/parse-server/logs \
+            -p 8036:1337  -d parse-server
+ docker build --tag parse-server .
+
+-----------
+
+
+ docker run --name my-parse-server2 --link my-mongo:mongo -d parse-server-2.5.3 --appId APPLICATION_ID --masterKey MASTER_KEY --databaseURI mongodb://mongo/test
+
+
+
+  docker run  --name tparse2 -appId APP_ID --masterKey MASTER_KEY  \
+                          -v /var/efs/testapp/cloud:/parse-server/cloud\
+                          -v /var/efs/testapp/cert:/parse-server/cert \
+                           -v /var/efs/testapp/conf:/parse-server/conf \
+                        	-v /var/efs/testapp/logs:/parse-server/logs \
+                         -p 8037:1337  -d parse-server-2.5.3
+
+
+ docker run  --name tparsedah  \
+                -v /var/efs/parse-dashboard/conf/:/src/Parse-Dashboard/conf \
+             -p 8037:4040  -d parse-dashboard
+
+curl -X POST \
+-H "X-Parse-Application-Id: APP-57931CC-7061-52D4-B5EA-356F2352B939" \
+-H "Content-Type: application/json" \
+-d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
+http://localhost:1337/5864ef5223fcb95c7a99a156/ikhair/classes/GameScore
+ ----
+
+
+ https://parseplatform.org/parse-server/api/3.1.3/ParseServerOptions.html
+     $ PARSE_SERVER_APPLICATION_ID='appId'
+    $ PARSE_SERVER_MASTER_KEY='masterKey'
+    $ PARSE_SERVER_URL='serverURL'
+    $ PARSE_SERVER_MASTER_KEY_IPS='masterKeyIps'
+    $ PARSE_SERVER_APP_NAME='appName'
+    $ PARSE_SERVER_ANALYTICS_ADAPTER='analyticsAdapter'
+    $ PARSE_SERVER_FILES_ADAPTER='filesAdapter'
+    $ PARSE_SERVER_PUSH='push'
+    $ PARSE_SERVER_SCHEDULED_PUSH='scheduledPush'
+    $ PARSE_SERVER_LOGGER_ADAPTER='loggerAdapter'
+    $ JSON_LOGS='jsonLogs'
+    $ PARSE_SERVER_LOGS_FOLDER='logsFolder'
+    $ VERBOSE='verbose'
+    $ PARSE_SERVER_LOG_LEVEL='logLevel'
+    $ SILENT='silent'
+    $ PARSE_SERVER_DATABASE_URI='databaseURI'
+    $ PARSE_SERVER_DATABASE_OPTIONS='databaseOptions'
+    $ PARSE_SERVER_DATABASE_ADAPTER='databaseAdapter'
+    $ PARSE_SERVER_CLOUD='cloud'
+    $ PARSE_SERVER_COLLECTION_PREFIX='collectionPrefix'
+    $ PARSE_SERVER_CLIENT_KEY='clientKey'
+    $ PARSE_SERVER_JAVASCRIPT_KEY='javascriptKey'
+    $ PARSE_SERVER_DOT_NET_KEY='dotNetKey'
+    $ PARSE_SERVER_REST_API_KEY='restAPIKey'
+    $ PARSE_SERVER_READ_ONLY_MASTER_KEY='readOnlyMasterKey'
+    $ PARSE_SERVER_WEBHOOK_KEY='webhookKey'
+    $ PARSE_SERVER_FILE_KEY='fileKey'
+    $ PARSE_SERVER_PRESERVE_FILE_NAME='preserveFileName'
+    $ PARSE_SERVER_USER_SENSITIVE_FIELDS='userSensitiveFields'
+    $ PARSE_SERVER_ENABLE_ANON_USERS='enableAnonymousUsers'
+    $ PARSE_SERVER_ALLOW_CLIENT_CLASS_CREATION='allowClientClassCreation'
+    $ PARSE_SERVER_AUTH_PROVIDERS='auth'
+    $ PARSE_SERVER_MAX_UPLOAD_SIZE='maxUploadSize'
+    $ PARSE_SERVER_VERIFY_USER_EMAILS='verifyUserEmails'
+    $ PARSE_SERVER_PREVENT_LOGIN_WITH_UNVERIFIED_EMAIL='preventLoginWithUnverifiedEmail'
+    $ PARSE_SERVER_EMAIL_VERIFY_TOKEN_VALIDITY_DURATION='emailVerifyTokenValidityDuration'
+    $ PARSE_SERVER_ACCOUNT_LOCKOUT='accountLockout'
+    $ PARSE_SERVER_PASSWORD_POLICY='passwordPolicy'
+    $ PARSE_SERVER_CACHE_ADAPTER='cacheAdapter'
+    $ PARSE_SERVER_EMAIL_ADAPTER='emailAdapter'
+    $ PARSE_PUBLIC_SERVER_URL='publicServerURL'
+    $ PARSE_SERVER_CUSTOM_PAGES='customPages'
+    $ PARSE_SERVER_LIVE_QUERY='liveQuery'
+    $ PARSE_SERVER_SESSION_LENGTH='sessionLength'
+    $ PARSE_SERVER_MAX_LIMIT='maxLimit'
+    $ PARSE_SERVER_EXPIRE_INACTIVE_SESSIONS='expireInactiveSessions'
+    $ PARSE_SERVER_REVOKE_SESSION_ON_PASSWORD_RESET='revokeSessionOnPasswordReset'
+    $ PARSE_SERVER_SCHEMA_CACHE_TTL='schemaCacheTTL'
+    $ PARSE_SERVER_CACHE_TTL='cacheTTL'
+    $ PARSE_SERVER_CACHE_MAX_SIZE='cacheMaxSize'
+    $ PARSE_SERVER_ENABLE_SINGLE_SCHEMA_CACHE='enableSingleSchemaCache'
+    $ PARSE_SERVER_ENABLE_EXPRESS_ERROR_HANDLER='enableExpressErrorHandler'
+    $ PARSE_SERVER_OBJECT_ID_SIZE='objectIdSize'
+    $ PORT='port'
+    $ PARSE_SERVER_HOST='host'
+    $ PARSE_SERVER_MOUNT_PATH='mountPath'
+    $ PARSE_SERVER_CLUSTER='cluster'
+    $ PARSE_SERVER_MIDDLEWARE='middleware'
+    $ PARSE_SERVER_START_LIVE_QUERY_SERVER='startLiveQueryServer'
+    $ PARSE_SERVER_LIVE_QUERY_SERVER_OPTIONS='liveQueryServerOptions'
